@@ -1,12 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.Scanner;
 
 /**
@@ -31,21 +25,21 @@ public class App {
         Grafo novo = new Grafo(0);
 
         try {
-            File arquivo = new File("grafo.txt");
+            File arquivo = new File("grafo2.txt");
             Scanner leitor = new Scanner(arquivo);
             int tipo, tamanho;
             tipo = leitor.nextInt();
-            System.out.println("Tipo - "+tipo);
+            System.out.println("Tipo - " + tipo);
             //Criação de um grafo não direcional
             if (tipo == 0) {
                 tamanho = leitor.nextInt();
-                System.out.println("Tamanho - "+tamanho);
+                System.out.println("Tamanho - " + tamanho);
                 novo = new Grafo(tamanho);
                 System.out.println("Inserção de vertices");
                 leitor.nextLine();
                 for (int i = 0; i < tamanho; i++) {
                     String t1 = leitor.nextLine();
-                    System.out.println("Aresta - "+t1);
+                    System.out.println("Vertice - " + t1);
                     novo.inserirVertice(t1);
 
                 }
@@ -54,14 +48,34 @@ public class App {
                 while (leitor.hasNextLine()) {
                     valor = leitor.nextLine();
                     arestas = valor.split(",");
-                    System.out.println("valor - "+valor);
-                    System.out.println("aresta0 - "+arestas[0]+"\naresta1 - "+arestas[1]);
+                    System.out.println("valor - " + valor);
+                    System.out.println("aresta0 - " + arestas[0] + "\naresta1 - " + arestas[1]);
+                    novo.inserirAresta(arestas[0], arestas[1]);
+                }
+                leitor.close();
+                return novo;
+            } else if (tipo == 1) {
+                tamanho = leitor.nextInt();
+                System.out.println("Tamanho - " + tamanho);
+                novo = new Digrafo(tamanho);
+                System.out.println("Inserção de vertices");
+                leitor.nextLine();
+                for (int i = 0; i < tamanho; i++) {
+                    String t1 = leitor.nextLine();
+                    System.out.println("Vertice - " + t1);
+                    novo.inserirVertice(t1);
+
+                }
+                String valor, arestas[];
+                System.out.println("Inserção de arestas");
+                while (leitor.hasNextLine()) {
+                    valor = leitor.nextLine();
+                    arestas = valor.split(",");
+                    System.out.println("valor - " + valor);
+                    System.out.println("aresta0 - " + arestas[0] + "\naresta1 - " + arestas[1]);
                     novo.inserirAresta(arestas[0], arestas[1]);
                 }
                 return novo;
-            } else {
-                novo = new Grafo(0);
-
             }
 
         } catch (Exception e) {

@@ -8,14 +8,14 @@ import java.util.HashMap;
  */
 public class Grafo {
 
-    private int matriz[][];
-    private HashMap<String, Integer> vertices;
-    private String saida;
+    protected int matriz[][];
+    protected HashMap<String, Integer> vertices;
+    protected String saida;
 
     public Grafo(int tamanho) {
         this.matriz = new int[tamanho][tamanho];
-        vertices = new HashMap<>();
-        saida = "";
+        this.vertices = new HashMap<>();
+        this.saida = "";
     }
 
     public String executar() {
@@ -49,7 +49,7 @@ public class Grafo {
             }
             out += "\n";
         }
-        return out;
+        return "Matriz de Incidencia:\n"+out;
     }
 
     public String getSaida() {
@@ -70,8 +70,8 @@ public class Grafo {
             if (qtd_Arestas == 0 && matriz.length > 0) {
                 return false;
             }
-            //procura vertice de grau impar
-            if (qtd_Arestas % 2 == 1) {
+            //procura vertice de grau impar se houver mais de 2 vertices
+            if (qtd_Arestas % 2 == 1 && matriz.length > 2) {
                 return false;
             }
         }
@@ -102,9 +102,9 @@ public class Grafo {
         if (cont == 1) {
             return false;
         }
-        for (int i = 0; i < verificado.length; i++) {
+        /*for (int i = 0; i < verificado.length; i++) {
             verificado[i] = false;
-        }
+        }*/
         ponte = buscaDNF(verificado, origem);
         for (int i = 0; i < verificado.length; i++) {
             verificado[i] = false;
@@ -124,7 +124,12 @@ public class Grafo {
                 if (!encontrarPonte(origem, i)) {
                     saida += vertices.keySet().toArray()[origem] + " -- " + vertices.keySet().toArray()[i] + "  ";
                     matriz[origem][i] = 0;
-                    matriz[i][origem] = 0;
+                    /*
+                    Para imprimir um circuito de 2 vertices, ja que se apagar a volta a olgoritmo se encerra
+                    */
+                    if (matriz.length > 2) {
+                        matriz[i][origem] = 0;
+                    }
                     buscarCircuito(i);
                     break;
                 }
