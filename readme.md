@@ -19,12 +19,12 @@ verifica se o grafo atende os requisitos para ter um circuito euleriano:
 Caso sim, o algoritmo recebe um vértice inicial e verifica qual vértice adjacente tem o maior alcance para então apagar a aresta 
 e fazer o mesmo no novo vértice, fazendo assim o circuito (lógica baseada no algoritmo de Hierholzer).
 
-###Utilização
+### Utilização
 
 ------------
 
 
-#####Inserção do Grafo
+##### Inserção do Grafo
 
 Salvar na pasta raiz um arquivo chamado "grafo.txt" seguindo o seguinte padrão:
 
