@@ -1,4 +1,4 @@
-Algoritmo que identifica se existe um circuito euleriano e um grafo/dígrafo, caso exista, imprime ele.
+Algoritmo que identifica se existe um circuito euleriano em um grafo/dígrafo, caso exista, imprime ele.
 
 ### Funcionamento
 
@@ -29,8 +29,8 @@ e fazer o mesmo no novo vértice, fazendo assim o circuito (lógica baseada no a
 Salvar na pasta raiz um arquivo chamado "grafo.txt" seguindo o seguinte padrão:
 
 linha 1: indicação se o grafo é direcionado ( 1 ) ou não ( 0 )
-linha1: número de vértices ( n )
-linha 2 até a linha (n + 1): nomes dos vértices
+linha 2: número de vértices ( n )
+linha 3 até a linha (n + 1): nomes dos vértices
 linha n+ 2 até o final do arquivo: arestas do grafo (uma por linha) com origem e destino, separados por vírgula.
 Exemplo:
 
@@ -47,7 +47,7 @@ Exemplo:
 ------------
 
 
-![](https://avatars2.githubusercontent.com/u/32603543?s=460&u=d0f0068bc3c65043b04c687f1e209f305ceb657f&v=4)
+[![](https://avatars2.githubusercontent.com/u/32603543?s=460&u=d0f0068bc3c65043b04c687f1e209f305ceb657f&v=4)](https://github.com/diony1997)
 
 `<link>` : <https://github.com/EpaduanAtAnhembi/atividade-grafos-a2-grupo-2>
 
