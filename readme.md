@@ -1,41 +1,42 @@
 //
 
-Autor – Diony Augusto
-Algoritmo que identifica se existe um circuito euleriano e um grafo/dígrafo, caso exista, imprime ele.
+Autor â€“ Diony Augusto
+
+Algoritmo que identifica se existe um circuito euleriano e um grafo/dÃ­grafo, caso exista, imprime ele.
 
 //
 
 -Funcionamento
 
-O algoritmo lê o arquivo de entrada e então cria uma matriz de adjacência do grafo.
+O algoritmo lÃª o arquivo de entrada e entÃ£o cria uma matriz de adjacÃªncia do grafo.
 
-Se o grafo não é orientado:
+Se o grafo nÃ£o Ã© orientado:
 
 verifica se o grafo atende os requisitos para ter um circuito euleriano
-*O grafo é conexo
-*Todos os vértices possuem grau par
+*O grafo Ã© conexo
+*Todos os vÃ©rtices possuem grau par
 
 Caso sim, o algoritmo faz o caminho evitando "destruir pontes"(logica baseado no algoritmo de Fleury), evitar destruir uma aresta que deixara o grafo desconexo para o circuito.
-para isso é utilizado uma busca por profundidade modificado, dado um vértice, ele retorna quantos vértices ele alcança.
+para isso Ã© utilizado uma busca por profundidade modificado, dado um vÃ©rtice, ele retorna quantos vÃ©rtices ele alcanÃ§a.
 
-Se o grafo é orientado:
+Se o grafo Ã© orientado:
 
 verifica se o grafo atende os requisitos para ter um circuito euleriano:
-*O grafo é conexo.
-*Todos os vértices alcançam os vértices restantes.
+*O grafo Ã© conexo.
+*Todos os vÃ©rtices alcanÃ§am os vÃ©rtices restantes.
 
-Caso sim, o algoritmo recebe um vértice inicial e verifica qual vértice adjacente tem o maior alcance para então apagar a aresta 
-e fazer o mesmo no novo vértice, fazendo assim o circuito (lógica baseada no algoritmo de Hierholzer).
+Caso sim, o algoritmo recebe um vÃ©rtice inicial e verifica qual vÃ©rtice adjacente tem o maior alcance para entÃ£o apagar a aresta 
+e fazer o mesmo no novo vÃ©rtice, fazendo assim o circuito (lÃ³gica baseada no algoritmo de Hierholzer).
 
 //
 
--Inserção do grafo
+-InserÃ§Ã£o do grafo
 
-salvar na pasta raiz um arquivo chamado "grafo.txt" seguindo o seguinte padrão:
-minha 1: indicação se o grafo é direcionado ( 1 ) ou não ( 0 )
-linha1: número de vértices ( n )
-linha 2 até a linha (n + 1): nomes dos vértices
-linha n+ 2 até o final do arquivo: arestas do grafo (uma por linha) com origem e destino, separados por vírgula.
+salvar na pasta raiz um arquivo chamado "grafo.txt" seguindo o seguinte padrÃ£o:
+minha 1: indicaÃ§Ã£o se o grafo Ã© direcionado ( 1 ) ou nÃ£o ( 0 )
+linha1: nÃºmero de vÃ©rtices ( n )
+linha 2 atÃ© a linha (n + 1): nomes dos vÃ©rtices
+linha n+ 2 atÃ© o final do arquivo: arestas do grafo (uma por linha) com origem e destino, separados por vÃ­rgula.
 Exemplo:
 1
 3
