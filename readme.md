@@ -1,3 +1,5 @@
+##### Diony Augusto da Silva Souza (20781283)
+
 Algoritmo que identifica se existe um circuito euleriano em um grafo/dígrafo, caso exista, imprime ele.
 
 ### Funcionamento
