@@ -1,4 +1,4 @@
-package app;
+package app.Grafos;
 
 import java.util.HashMap;
 
@@ -19,7 +19,6 @@ public class Grafo {
     }
 
     public String executar() {
-        System.out.println("Começou");
         if (verificarCircuito()) {
             buscarCircuito(0);
             return "Circuito Encontrado:\n" + getSaida();
@@ -39,8 +38,12 @@ public class Grafo {
         matriz[fonte][destino] = 1;
         matriz[destino][fonte] = 1;
     }
+    
+    public boolean validarVertice(String nome){
+        return vertices.containsKey(nome);
+    }
 
-    //impressão da matriz de adjacencia
+    //impressão da matriz de adjacência
     public String imprimir() {
         String out = "";
         for (int[] linha : matriz) {
@@ -49,14 +52,14 @@ public class Grafo {
             }
             out += "\n";
         }
-        return "Matriz de Incidencia:\n"+out;
+        return "Matriz de Adjacência:\n"+out;
     }
 
     public String getSaida() {
         return saida;
     }
 
-    //verificar se existi um circuito euleriano
+    //verifica se existe um circuito euleriano
     public boolean verificarCircuito() {
         int qtd_Arestas;
         for (int i = 0; i < matriz.length; i++) {
@@ -78,13 +81,13 @@ public class Grafo {
         return true;
     }
 
-    //retorna a qtd de aresta adjancentes
-    public int buscaDNF(boolean[] verificado, int origem) {
+    //retorna a qtd de aresta alcançáveis
+    public int buscaDFS(boolean[] verificado, int origem) {
         int cont = 1;
         verificado[origem] = true;
         for (int i = 0; i < verificado.length; i++) {
             if (matriz[origem][i] == 1 && !verificado[i]) {
-                cont += buscaDNF(verificado, i);
+                cont += buscaDFS(verificado, i);
             }
         }
         return cont;
@@ -102,16 +105,13 @@ public class Grafo {
         if (cont == 1) {
             return false;
         }
-        /*for (int i = 0; i < verificado.length; i++) {
-            verificado[i] = false;
-        }*/
-        ponte = buscaDNF(verificado, origem);
+        ponte = buscaDFS(verificado, origem);
         for (int i = 0; i < verificado.length; i++) {
             verificado[i] = false;
         }
         matriz[origem][destino] = 0;
         matriz[destino][origem] = 0;
-        semPonte = buscaDNF(verificado, origem);
+        semPonte = buscaDFS(verificado, origem);
         matriz[origem][destino] = 1;
         matriz[destino][origem] = 1;
         return semPonte < ponte;
@@ -125,7 +125,8 @@ public class Grafo {
                     saida += vertices.keySet().toArray()[origem] + " -- " + vertices.keySet().toArray()[i] + "  ";
                     matriz[origem][i] = 0;
                     /*
-                    Para imprimir um circuito de 2 vertices, ja que se apagar a volta a olgoritmo se encerra
+                    Condição necessária para a impressão de um circuito de um grafo
+                    com 2 vertices, ja que se apagar a volta a olgoritmo se encerra
                     */
                     if (matriz.length > 2) {
                         matriz[i][origem] = 0;

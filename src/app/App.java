@@ -1,5 +1,8 @@
 package app;
 
+import app.Exception.EntradaInvalidaException;
+import app.Grafos.Digrafo;
+import app.Grafos.Grafo;
 import java.io.File;
 import java.util.Scanner;
 
@@ -13,75 +16,96 @@ public class App {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+
         Grafo teste = leitor();
         System.out.println(teste.imprimir());
         System.out.println(teste.executar());
-        System.out.println(teste.imprimir());
 
     }
 
     public static Grafo leitor() {
-        Grafo novo = new Grafo(0);
+        Grafo novo;
 
         try {
-            File arquivo = new File("grafo2.txt");
+            File arquivo = new File("grafo.txt");
             Scanner leitor = new Scanner(arquivo);
             int tipo, tamanho;
             tipo = leitor.nextInt();
-            System.out.println("Tipo - " + tipo);
-            //Criação de um grafo não direcional
-            if (tipo == 0) {
-                tamanho = leitor.nextInt();
-                System.out.println("Tamanho - " + tamanho);
-                novo = new Grafo(tamanho);
-                System.out.println("Inserção de vertices");
-                leitor.nextLine();
-                for (int i = 0; i < tamanho; i++) {
-                    String t1 = leitor.nextLine();
-                    System.out.println("Vertice - " + t1);
-                    novo.inserirVertice(t1);
+            switch (tipo) {
 
+                //Criação de um grafo não direcional
+                case 0: {
+                    tamanho = leitor.nextInt();
+                    novo = new Grafo(tamanho);
+                    leitor.nextLine();
+                    //inserção dos vértices
+                    for (int i = 0; i < tamanho; i++) {
+                        String t1 = leitor.nextLine();
+                        //checar se o vertice é repetido
+                        if (!novo.validarVertice(t1)) {
+                            novo.inserirVertice(t1);
+                        } else {
+                            throw new EntradaInvalidaException("\nVertice Repetido: " + t1);
+                        }
+                    }
+                    String valor, arestas[];
+                    //inserção das arestas
+                    while (leitor.hasNextLine()) {
+                        valor = leitor.nextLine();
+                        arestas = valor.split(",");
+                        //checar se os vertices existem
+                        if (novo.validarVertice(arestas[0]) && novo.validarVertice(arestas[1])) {
+                            novo.inserirAresta(arestas[0], arestas[1]);
+                        } else {
+                            throw new EntradaInvalidaException("\nVertices Não Declarados: " + valor);
+                        }
+                    }
+                    leitor.close();
+                    return novo;
                 }
-                String valor, arestas[];
-                System.out.println("Inserção de arestas");
-                while (leitor.hasNextLine()) {
-                    valor = leitor.nextLine();
-                    arestas = valor.split(",");
-                    System.out.println("valor - " + valor);
-                    System.out.println("aresta0 - " + arestas[0] + "\naresta1 - " + arestas[1]);
-                    novo.inserirAresta(arestas[0], arestas[1]);
-                }
-                leitor.close();
-                return novo;
-            } else if (tipo == 1) {
-                tamanho = leitor.nextInt();
-                System.out.println("Tamanho - " + tamanho);
-                novo = new Digrafo(tamanho);
-                System.out.println("Inserção de vertices");
-                leitor.nextLine();
-                for (int i = 0; i < tamanho; i++) {
-                    String t1 = leitor.nextLine();
-                    System.out.println("Vertice - " + t1);
-                    novo.inserirVertice(t1);
 
+                //Criação de um grafo direcional
+                case 1: {
+                    tamanho = leitor.nextInt();
+                    novo = new Digrafo(tamanho);
+                    leitor.nextLine();
+                    //inserção dos vértices
+                    for (int i = 0; i < tamanho; i++) {
+                        String t1 = leitor.nextLine();
+                        //checar se o vertice é repetido
+                        if (!novo.validarVertice(t1)) {
+                            novo.inserirVertice(t1);
+                        } else {
+                            throw new EntradaInvalidaException("\nVertice Repetido: " + t1);
+                        }
+
+                    }
+                    String valor, arestas[];
+                    //inserção das arestas
+                    while (leitor.hasNextLine()) {
+                        valor = leitor.nextLine();
+                        arestas = valor.split(",");
+                        //checar se os vertices existem
+                        if (novo.validarVertice(arestas[0]) && novo.validarVertice(arestas[1])) {
+                            novo.inserirAresta(arestas[0], arestas[1]);
+                        } else {
+                            throw new EntradaInvalidaException("\nVertices Não Declarados: " + valor);
+                        }
+                    }
+                    leitor.close();
+                    return novo;
                 }
-                String valor, arestas[];
-                System.out.println("Inserção de arestas");
-                while (leitor.hasNextLine()) {
-                    valor = leitor.nextLine();
-                    arestas = valor.split(",");
-                    System.out.println("valor - " + valor);
-                    System.out.println("aresta0 - " + arestas[0] + "\naresta1 - " + arestas[1]);
-                    novo.inserirAresta(arestas[0], arestas[1]);
-                }
-                return novo;
+                //caso o tipo não seja 0 ou 1
+                default:
+                    throw new EntradaInvalidaException("\nTipo Invalido");
             }
 
         } catch (Exception e) {
-            System.out.println("Erro na leitura do grafo:\n" + e);
+            System.out.println("Erro na leitura do grafo:\nInserção Inválida\n" + e);
         }
-        return novo;
+        //Encerra a aplicação caso a entrada incorreta
+        System.exit(0);
+        return new Grafo(0);
     }
 
 }

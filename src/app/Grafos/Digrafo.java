@@ -1,4 +1,4 @@
-package app;
+package app.Grafos;
 
 import java.util.Arrays;
 
@@ -45,14 +45,14 @@ public class Digrafo extends Grafo {
         return (Arrays.equals(arestasNegativas, arestasPositivas));
     }
 
-    //verificar se o grafo é conexo
+    //verifica se o grafo é conexo
     public boolean conexo() {
         boolean[] verificado = new boolean[matriz.length];
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
                 verificado[j] = false;
             }
-            buscaDNF(verificado, i);
+            buscaDFS(verificado, i);
             for (int j = 0; j < matriz.length; j++) {
                 if (!verificado[j]) {
                     return false;
@@ -62,7 +62,7 @@ public class Digrafo extends Grafo {
         return true;
     }
 
-    //retorna um vertice com maior dnf a partir de um dado vertice
+    //retorna um vertice que alcança a maior qtd de vertices a partir de um dado vertice
     public int encontrarCaminho(int origem) {
         int cont = 0, saida = 0;
         boolean[] verificado = new boolean[matriz.length];
@@ -78,10 +78,10 @@ public class Digrafo extends Grafo {
             return saida;
         }
         int maior = 0, atual;
-        //procura qual aresta liga a um vertice
+        //procura qual aresta esta ligada a mais vertices
         for (int i = 0; i < matriz.length; i++) {
             if (matriz[origem][i] == 1) {
-                atual = buscaDNF(verificado, i);
+                atual = buscaDFS(verificado, i);
                 if (atual > maior) {
                     maior = atual;
                     saida = i;
@@ -106,7 +106,7 @@ public class Digrafo extends Grafo {
                 }
             }
         }
-        //procura a aresta com maior o vertice de maior DNF
+        //procura a aresta com o vertice que possui maior alcance
         while (qtdArestas > 0) {
             int i = encontrarCaminho(origem);
             matriz[origem][i] = 0;
@@ -117,6 +117,7 @@ public class Digrafo extends Grafo {
         }
     }
 
+    //Modificado devido as arestas direcionadas
     @Override
     public void inserirAresta(String de, String para) {
         int fonte = vertices.get(de);
