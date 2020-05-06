@@ -1,8 +1,11 @@
 1
-3
+4
 A
 B
 C
-a,B
+D
+A,A
+A,B
 B,C
-C,A
+C,D
+D,A

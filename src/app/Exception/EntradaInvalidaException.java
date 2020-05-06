@@ -17,6 +17,5 @@ public class EntradaInvalidaException extends Exception {
     public EntradaInvalidaException(String linhaInvalida) {
         super(linhaInvalida);
     }
-    
-    
+
 }

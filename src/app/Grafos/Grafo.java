@@ -38,8 +38,8 @@ public class Grafo {
         matriz[fonte][destino] = 1;
         matriz[destino][fonte] = 1;
     }
-    
-    public boolean validarVertice(String nome){
+
+    public boolean validarVertice(String nome) {
         return vertices.containsKey(nome);
     }
 
@@ -52,7 +52,7 @@ public class Grafo {
             }
             out += "\n";
         }
-        return "Matriz de Adjacência:\n"+out;
+        return "Matriz de Adjacência:\n" + out;
     }
 
     public String getSaida() {
@@ -67,6 +67,10 @@ public class Grafo {
             for (int j = 0; j < matriz.length; j++) {
                 if (matriz[i][j] == 1) {
                     qtd_Arestas++;
+                    //caso a aresta esteja saindo e indo para o mesmo vertice
+                    if(i == j){
+                        qtd_Arestas++;
+                    }
                 }
             }
             //procurar vertice desconexo
@@ -127,7 +131,7 @@ public class Grafo {
                     /*
                     Condição necessária para a impressão de um circuito de um grafo
                     com 2 vertices, ja que se apagar a volta a olgoritmo se encerra
-                    */
+                     */
                     if (matriz.length > 2) {
                         matriz[i][origem] = 0;
                     }
