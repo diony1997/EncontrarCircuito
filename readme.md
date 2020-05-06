@@ -34,7 +34,7 @@ e fazer o mesmo no novo vértice, fazendo assim o circuito (lógica baseada no a
 
 Salvar na pasta raiz um arquivo chamado "grafo.txt" seguindo o seguinte padrão:
 
-linha 1: indicação se o grafo é direcionado ( 1 ) ou não ( 0 )
+linha 1: indicação se o grafo é orientado ( 1 ) ou não ( 0 )
 
 linha 2: número de vértices ( n )
 
