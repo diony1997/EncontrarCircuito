@@ -18,6 +18,7 @@ Caso sim, o algoritmo faz o caminho evitando "destruir pontes" (logica baseado n
 Para isso é utilizado uma busca por profundidade modificado, dado um vértice, ele retorna quantos vértices ele alcança (lógica baseada no algoritmo de Hierholzer).
 - Caso o grafo seja orientado:
 verifica se o grafo atende os requisitos para ter um circuito euleriano:
+
 	- O grafo é conexo.
 	- Todos os vértices alcançam os vértices restantes.
 
