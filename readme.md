@@ -1,4 +1,4 @@
-##### Diony Augusto da Silva Souza (20781283)
+﻿##### Diony Augusto da Silva Souza (20781283)
 
 Algoritmo que identifica se existe um circuito euleriano em um grafo/dígrafo, caso exista, imprime ele.
 
@@ -7,12 +7,15 @@ Algoritmo que identifica se existe um circuito euleriano em um grafo/dígrafo, c
 ------------
 O algoritmo lê o arquivo de entrada e então cria uma matriz de adjacência do grafo.
 
+- Caso o arquivo de entrada não seja valido, o algoritmo indica o erro e se encerra.
+
 - Caso o grafo não seja orientado:
 Verifica se o grafo atende os requisitos para ter um circuito euleriano:
 	- O grafo é conexo
 	- Todos os vértices possuem grau par
 
-Caso sim, o algoritmo faz o caminho evitando "destruir pontes" (logica baseado no algoritmo de Fleury), evitar destruir uma aresta que deixara o grafo desconexo para o circuito. Para isso é utilizado uma busca por profundidade modificado, dado um vértice, ele retorna quantos vértices ele alcança.
+Caso sim, o algoritmo faz o caminho evitando "destruir pontes" (logica baseado no algoritmo de Fleury), evitar destruir uma aresta que deixará o grafo desconexo para o circuito. 
+Para isso é utilizado uma busca por profundidade modificado, dado um vértice, ele retorna quantos vértices ele alcança (lógica baseada no algoritmo de Hierholzer).
 - Caso o grafo seja orientado:
 verifica se o grafo atende os requisitos para ter um circuito euleriano:
 	- O grafo é conexo.

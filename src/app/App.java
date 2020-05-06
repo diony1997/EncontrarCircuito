@@ -4,6 +4,7 @@ import app.Exception.EntradaInvalidaException;
 import app.Grafos.Digrafo;
 import app.Grafos.Grafo;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -20,19 +21,16 @@ public class App {
         Grafo teste = leitor();
         System.out.println(teste.imprimir());
         System.out.println(teste.executar());
-
     }
 
     public static Grafo leitor() {
         Grafo novo;
-
         try {
             File arquivo = new File("grafo.txt");
             Scanner leitor = new Scanner(arquivo);
             int tipo, tamanho;
             tipo = leitor.nextInt();
             switch (tipo) {
-
                 //Criação de um grafo não direcional
                 case 0: {
                     tamanho = leitor.nextInt();
@@ -63,7 +61,6 @@ public class App {
                     leitor.close();
                     return novo;
                 }
-
                 //Criação de um grafo direcional
                 case 1: {
                     tamanho = leitor.nextInt();
@@ -78,7 +75,6 @@ public class App {
                         } else {
                             throw new EntradaInvalidaException("\nVertice Repetido: " + t1);
                         }
-
                     }
                     String valor, arestas[];
                     //inserção das arestas
@@ -99,8 +95,9 @@ public class App {
                 default:
                     throw new EntradaInvalidaException("\nTipo Invalido");
             }
-
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
+            System.out.println("Arquivo não encontrado\n" + e);
+        } catch (EntradaInvalidaException | RuntimeException e) {
             System.out.println("Erro na leitura do grafo:\nInserção Inválida\n" + e);
         }
         //Encerra a aplicação caso a entrada incorreta

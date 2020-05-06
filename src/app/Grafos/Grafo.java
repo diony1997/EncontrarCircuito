@@ -35,8 +35,8 @@ public class Grafo {
         int fonte = vertices.get(de);
         int destino = vertices.get(para);
 
-        matriz[fonte][destino] = 1;
-        matriz[destino][fonte] = 1;
+        matriz[fonte][destino]++;
+        matriz[destino][fonte]++;
     }
 
     public boolean validarVertice(String nome) {
@@ -65,11 +65,11 @@ public class Grafo {
         for (int i = 0; i < matriz.length; i++) {
             qtd_Arestas = 0;
             for (int j = 0; j < matriz.length; j++) {
-                if (matriz[i][j] == 1) {
-                    qtd_Arestas++;
+                if (matriz[i][j] > 0) {
+                    qtd_Arestas += matriz[i][j];
                     //caso a aresta esteja saindo e indo para o mesmo vertice
-                    if(i == j){
-                        qtd_Arestas++;
+                    if (i == j) {
+                        qtd_Arestas += matriz[i][j];
                     }
                 }
             }
@@ -77,68 +77,81 @@ public class Grafo {
             if (qtd_Arestas == 0 && matriz.length > 0) {
                 return false;
             }
-            //procura vertice de grau impar se houver mais de 2 vertices
-            if (qtd_Arestas % 2 == 1 && matriz.length > 2) {
-                return false;
-            }
         }
         return true;
     }
 
-    //retorna a qtd de aresta alcançáveis
+    //retorna a qtd de vértices alcançáveis
     public int buscaDFS(boolean[] verificado, int origem) {
         int cont = 1;
         verificado[origem] = true;
         for (int i = 0; i < verificado.length; i++) {
-            if (matriz[origem][i] == 1 && !verificado[i]) {
+            if (matriz[origem][i] > 0 && !verificado[i]) {
                 cont += buscaDFS(verificado, i);
             }
         }
         return cont;
     }
 
-    //verifica se pode retirar a aresta sem deixar o grafo desconexo
-    public boolean encontrarPonte(int origem, int destino) {
-        int cont = 0, ponte, semPonte;
-        boolean[] verificado = new boolean[matriz.length];
-        for (int i = 0; i < matriz.length; i++) {
-            if (matriz[origem][i] == 1) {
-                cont++;
-            }
-        }
-        if (cont == 1) {
-            return false;
-        }
-        ponte = buscaDFS(verificado, origem);
-        for (int i = 0; i < verificado.length; i++) {
-            verificado[i] = false;
-        }
-        matriz[origem][destino] = 0;
-        matriz[destino][origem] = 0;
-        semPonte = buscaDFS(verificado, origem);
-        matriz[origem][destino] = 1;
-        matriz[destino][origem] = 1;
-        return semPonte < ponte;
-    }
-
     //procura um circuito para impressão
     public void buscarCircuito(int origem) {
+        int qtdArestas = 0;
+        //calcula a quantidade de arestas
         for (int i = 0; i < matriz.length; i++) {
-            if (matriz[origem][i] == 1) {
-                if (!encontrarPonte(origem, i)) {
-                    saida += vertices.keySet().toArray()[origem] + " -- " + vertices.keySet().toArray()[i] + "  ";
-                    matriz[origem][i] = 0;
-                    /*
-                    Condição necessária para a impressão de um circuito de um grafo
-                    com 2 vertices, ja que se apagar a volta a olgoritmo se encerra
-                     */
-                    if (matriz.length > 2) {
-                        matriz[i][origem] = 0;
-                    }
-                    buscarCircuito(i);
-                    break;
+            for (int j = 0; j < matriz.length; j++) {
+                if (matriz[i][j] > 0) {
+                    qtdArestas += matriz[i][j];
                 }
             }
         }
+        //procura a aresta com o vertice que possui maior alcance
+        while (qtdArestas > 0) {
+            int i = encontrarCaminho(origem);
+            //retira a arestas da matriz
+            matriz[origem][i]--;
+            matriz[i][origem]--;
+            saida += vertices.keySet().toArray()[origem] + " -- " + vertices.keySet().toArray()[i] + "  ";
+            origem = i;
+            qtdArestas -= 2;
+        }
     }
+
+    //retorna um vertice que alcança a maior qtd de vertices a partir de um dado vertice
+    public int encontrarCaminho(int origem) {
+        int cont = 0, saida = 0;
+        boolean[] verificado = new boolean[matriz.length];
+        //procura quantos arestas existem no vertice
+        for (int i = 0; i < matriz.length; i++) {
+            if (matriz[origem][i] > 0) {
+                cont += matriz[origem][i];
+                saida = i;
+            }
+        }
+        //se existir apenas uma aresta
+        if (cont == 1) {
+            return saida;
+        }
+        int maior = 0, atual;
+        //procura qual aresta esta ligada a mais vertices
+        for (int i = 0; i < matriz.length; i++) {
+            if (matriz[origem][i] > 0) {
+                //retira a aresta para verificar se é uma ponte (se caso restir ela, o grafo fica desconexo)
+                matriz[origem][i]--;
+                matriz[i][origem]--;
+                atual = buscaDFS(verificado, i);
+                //insere a aresta novamente
+                matriz[origem][i]++;
+                matriz[i][origem]++;
+                if (atual > maior) {
+                    maior = atual;
+                    saida = i;
+                }
+                for (int j = 0; j < verificado.length; j++) {
+                    verificado[j] = false;
+                }
+            }
+        }
+        return saida;
+    }
+
 }

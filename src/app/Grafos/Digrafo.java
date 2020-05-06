@@ -35,9 +35,9 @@ public class Digrafo extends Grafo {
         for (int i = 0; i < matriz.length; i++) {
             int arestas = 0;
             for (int j = 0; j < matriz.length; j++) {
-                if (matriz[i][j] == 1) {
-                    arestasPositivas[j]++;
-                    arestas++;
+                if (matriz[i][j] > 0) {
+                    arestasPositivas[j] += matriz[i][j];
+                    arestas += matriz[i][j];
                 }
             }
             arestasNegativas[i] = arestas;
@@ -63,13 +63,14 @@ public class Digrafo extends Grafo {
     }
 
     //retorna um vertice que alcança a maior qtd de vertices a partir de um dado vertice
+    @Override
     public int encontrarCaminho(int origem) {
         int cont = 0, saida = 0;
         boolean[] verificado = new boolean[matriz.length];
         //procura quantos arestas existem no vertice
         for (int i = 0; i < matriz.length; i++) {
-            if (matriz[origem][i] == 1) {
-                cont++;
+            if (matriz[origem][i] > 0) {
+                cont += matriz[origem][i];
                 saida = i;
             }
         }
@@ -80,14 +81,14 @@ public class Digrafo extends Grafo {
         int maior = 0, atual;
         //procura qual aresta esta ligada a mais vertices
         for (int i = 0; i < matriz.length; i++) {
-            if (matriz[origem][i] == 1) {
+            if (matriz[origem][i] > 0) {
                 atual = buscaDFS(verificado, i);
                 if (atual > maior) {
                     maior = atual;
                     saida = i;
                 }
                 for (int j = 0; j < verificado.length; j++) {
-                    verificado[i] = false;
+                    verificado[j] = false;
                 }
             }
         }
@@ -101,15 +102,16 @@ public class Digrafo extends Grafo {
         //calculando quantidade de arestas
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz.length; j++) {
-                if (matriz[i][j] == 1) {
-                    qtdArestas++;
+                if (matriz[i][j] > 0) {
+                    qtdArestas += matriz[i][j];
                 }
             }
         }
         //procura a aresta com o vertice que possui maior alcance
         while (qtdArestas > 0) {
             int i = encontrarCaminho(origem);
-            matriz[origem][i] = 0;
+            //retira a aresta da matriz
+            matriz[origem][i]--;
             saida += vertices.keySet().toArray()[origem] + " -- " + vertices.keySet().toArray()[i] + "  ";
             origem = i;
             qtdArestas--;
@@ -122,6 +124,6 @@ public class Digrafo extends Grafo {
     public void inserirAresta(String de, String para) {
         int fonte = vertices.get(de);
         int destino = vertices.get(para);
-        matriz[fonte][destino] = 1;
+        matriz[fonte][destino]++;
     }
 }
