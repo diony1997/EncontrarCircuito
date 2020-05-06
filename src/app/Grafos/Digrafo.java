@@ -15,8 +15,12 @@ public class Digrafo extends Grafo {
     @Override
     public String executar() {
         if (verificarCircuito()) {
-            buscarCircuito(0);
-            return "Circuito Encontrado:\n" + getSaida();
+            if (matriz.length > 1) {
+                buscarCircuito(0);
+                return "Circuito Encontrado:\n" + getSaida();
+            } else {
+                return "Grafo Possui apenas um vértice\n" + getSaida();
+            }
         }
         return "O Grafo fornecido não contem um Circuito Euleriano";
     }

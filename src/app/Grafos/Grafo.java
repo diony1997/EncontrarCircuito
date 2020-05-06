@@ -20,8 +20,12 @@ public class Grafo {
 
     public String executar() {
         if (verificarCircuito()) {
-            buscarCircuito(0);
-            return "Circuito Encontrado:\n" + getSaida();
+            if (matriz.length > 1) {
+                buscarCircuito(0);
+                return "Circuito Encontrado:\n" + getSaida();
+            } else {
+                return "Grafo Possui apenas um vértice\n" + getSaida();
+            }
         } else {
             return "O Grafo fornecido não contem um Circuito Euleriano";
         }
@@ -74,7 +78,7 @@ public class Grafo {
                 }
             }
             //procurar vertice desconexo
-            if (qtd_Arestas == 0 && matriz.length > 0) {
+            if (qtd_Arestas == 0 && matriz.length > 1) {
                 return false;
             }
         }
