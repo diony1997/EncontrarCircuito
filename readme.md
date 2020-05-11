@@ -1,5 +1,5 @@
-##### Diony Augusto da Silva Souza (20781283)
-##### Paulo Ricardo Martins Kurihara (20933327)
+###### Diony Augusto da Silva Souza (20781283)
+###### Paulo Ricardo Martins Kurihara (20933327)
 
 Algoritmo que identifica se existe um circuito euleriano em um grafo/dígrafo, caso exista, imprime ele.
 
