@@ -78,7 +78,7 @@ public class Grafo {
                 }
             }
             //verificar se a quatidade de arestas é par
-            if( qtd_Arestas %2 == 1 && matriz.length > 1){
+            if (qtd_Arestas % 2 == 1 && matriz.length > 1) {
                 return false;
             }
             //procurar vertice desconexo
