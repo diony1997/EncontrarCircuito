@@ -11,6 +11,10 @@ import java.util.Scanner;
  *
  * @author Diony
  */
+
+// Diony Augusto
+// Paulo Kurihara
+
 public class App {
 
     /**
