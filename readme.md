@@ -1,7 +1,3 @@
-### Participantes:
-- Diony Augusto da Silva Souza (20781283)
-- Paulo Ricardo Martins Kurihara (20933327)
-
 Algoritmo que identifica se existe um circuito euleriano em um grafo/dígrafo, caso exista, imprime ele.
 
 ### Funcionamento
@@ -60,9 +56,3 @@ Exemplo:
 
 
 <a href="https://github.com/diony1997"><img src="https://avatars2.githubusercontent.com/u/32603543?s=460&u=d0f0068bc3c65043b04c687f1e209f305ceb657f&v=4"  height="100" width="100" ></a>
-
-
-
-`<link>` : <https://github.com/EpaduanAtAnhembi/atividade-grafos-a2-grupo-2>
-
-
